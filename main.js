@@ -1,8 +1,10 @@
 import { mouseEvents } from "./JS/mouseEvent.js";
-import { grid } from "./JS/grid.js";
-import { ctx } from "./JS/global.js";
-import { isHolding } from "./JS/mouseEvent.js";
-import { cam } from "./JS/Cam.js";
+import { cam, canvas_info, ctx, mouse, world } from "./JS/global.js";
+
+
+
+
+
 
 function startGame() {
     mouseEvents();
@@ -11,13 +13,17 @@ function startGame() {
 }
 
 function game() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.clearRect(0, 0, canvas_info.size[0], canvas_info.size[1]);
 
-    grid.draw();
+    
+    ctx.save();
+    ctx.translate(-cam.coord[0], -cam.coord[1]);
+    
+    
+    world.draw(ctx, [cam.coord, cam.bounds()])
+    ctx.restore();
 
-    if(isHolding){
-        cam.move()
-    }
+    
 
     window.requestAnimationFrame(game);
 }

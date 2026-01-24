@@ -1,46 +1,45 @@
-import { positions } from "./global.js";
-import { cam } from "./Cam.js";
-import { grid } from "./grid.js";
+import { canvas, mouse } from "./global.js";
+import { cam } from "./global.js";
 
-export var isHolding = false;
-let holdTimeout, click; 
 
 function getXY(e){
     const rect = canvas.getBoundingClientRect();
     const x = Math.round(e.clientX - rect.left);
     const y = Math.round(e.clientY - rect.top);
-    return [x,y];
+
+    /** @type {[x:number, y:number]} */
+    let coords = [x, y]
+    return coords;
 }
 
 export function mouseEvents() {
-    document.addEventListener("mousedown", (e) => {
-        positions.mouseDown = getXY(e);
 
-        click = true
-        isHolding = true
+    document.addEventListener("mousedown", (e) => {
+        const coords = getXY(e);
+        mouse.down = coords;
+        mouse.isHolding = true;
+
+        // Inicia o movimento da câmera IMEDIATAMENTE no clique
+        cam.startMove(coords); 
     });
+
+    //
 
     document.addEventListener("mouseup", (e) => {
-        positions.mouseUp = getXY(e);
-
-        if(click){
-            console.log(grid.quadTree)
-        }
-
-        click = false
-        isHolding = false
-        cam.endMove()
+        mouse.isHolding = false;
+        cam.endMove();
     });
+
+    //
 
     document.addEventListener("mousemove", (e) => {
-        positions.mouseMove = getXY(e);
+        const coords = getXY(e);
+        mouse.move = coords;
 
-        if(isHolding){
-            if(click){
-                click = false
-                cam.startMove(positions.mouseDown)
-            }
-            cam.move()
+        if (mouse.isHolding) {
+            // Não precisa de isClick aqui para a câmera.
+            // O cam.move já lida com o deslocamento baseado no mouseLastCoords
+            cam.move(coords);
         }
     });
-}
+}  
