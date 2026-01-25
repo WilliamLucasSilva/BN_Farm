@@ -28,7 +28,6 @@ export class Cam{
      * @param {[x:number, y:number]} coords - initial move coords
      */
     startMove(coords) {
-        console.log('start')
         this.isMoving = true;
         this.mouseLastCoords = [...coords];
     }

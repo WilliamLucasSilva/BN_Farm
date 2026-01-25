@@ -19,7 +19,6 @@ export function mouseEvents() {
         mouse.down = coords;
         mouse.isHolding = true;
 
-        // Inicia o movimento da câmera IMEDIATAMENTE no clique
         cam.startMove(coords); 
     });
 
@@ -37,8 +36,6 @@ export function mouseEvents() {
         mouse.move = coords;
 
         if (mouse.isHolding) {
-            // Não precisa de isClick aqui para a câmera.
-            // O cam.move já lida com o deslocamento baseado no mouseLastCoords
             cam.move(coords);
         }
     });
