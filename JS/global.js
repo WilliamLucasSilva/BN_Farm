@@ -31,7 +31,7 @@ export const mouse = {
     isHolding: false,
 }
 
-export const world = new World([100, 100], 64)
+export const world = new World([100, 100], [64, 64])
 export const cam = new Cam([300, 300], canvas_size,
-    [world.size[0] * world.gap, world.size[1] * world.gap])
+    [world.size[0] * world.gap[0], world.size[1] * world.gap[1]])
 

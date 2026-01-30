@@ -35,10 +35,10 @@ export class GameObject {
      * 
      * @param {CanvasRenderingContext2D} ctx - the canvas context
      */
-    draw(ctx){
+    draw(ctx, sprCoords = this.sprSheet.sprSheet_coords){
         if (!this.stats.visible) return;
         if (this.sprSheet_isEmpty) return;
 
-        this.sprSheet.draw(ctx, this.coords, this.size)
+        this.sprSheet.draw(ctx, this.coords, this.size, sprCoords)
     }
 }

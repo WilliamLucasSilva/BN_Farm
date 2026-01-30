@@ -13,14 +13,15 @@ export class SprSheet{
      * @param {string} src - the sprite sheet image path
      */
     constructor(coords, size, src){
-        this.coords = coords
+        this.coords = coords 
         this.size = size
         this.src = src
-
+        
         this.img = new Image();
         this.img.src = src;
         this.isLoaded = false;
-
+        
+        /** @type {[x:number, y:number]} */
         this.sprSheet_coords = [this.coords[0] * this.size[0], this.coords[1] * this.size[1]]
 
         this.img.onload = () => {
@@ -46,14 +47,15 @@ export class SprSheet{
      * @param {CanvasRenderingContext2D} ctx - the canvas context
      * @param {[x:number, y:number]} coords - the object coordenates in canvas
      * @param {[width:number, height:number]} size - The object size in canvas
+     * @param {[x:number, y:number]} sprCoords - the object coordenates in sprite sheet
      */
-    draw(ctx, coords, size){
+    draw(ctx, coords, size, sprCoords){
         if (!this.isLoaded) return;
 
         ctx.drawImage(
             this.img,                   // 1. A imagem original (Sheet)
-            this.sprSheet_coords[0],    // 2. X de início do corte na Sheet
-            this.sprSheet_coords[1],    // 3. Y de início do corte na Sheet
+            sprCoords[0],    // 2. X de início do corte na Sheet
+            sprCoords[1],    // 3. Y de início do corte na Sheet
             this.size[0],               // 4. Largura do corte na Sheet
             this.size[1],               // 5. Altura do corte na Sheet
             coords[0],                  // 6. X onde será desenhado no Canvas

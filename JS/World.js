@@ -9,10 +9,12 @@ export class World extends Grid{
      * World constructor
      * 
      * @param {[width:number, height:number]} size - The grid size
-     * @param {number} gap - the gap of the nodes
+     * @param {[width:number, height:number]} gap - the gap of the nodes
      */
     constructor(size,gap){
         super(size)
+
+        /** @type {vec2} */
         this.gap = gap
 
         this.forEachNode(
@@ -22,9 +24,9 @@ export class World extends Grid{
          * @param {vec2} coords
          */
         (nodes, coords) => {
-            nodes.setObject(
+            nodes.object.add(
                 new Grass(
-                    [coords[0] * this.gap, coords[1] * this.gap],
+                    [coords[0] * this.gap[0], coords[1] * this.gap[1]],
                     coords
                 ))
         })}
@@ -47,7 +49,9 @@ export class World extends Grid{
              * @param {vec2} coords
              */
             (nodes, coords) => {
-                nodes.object.draw(ctx)
+                nodes.object.forEach((e) => {
+                    e.draw(ctx)
+                })
             }, newArea[0], [newArea[1][0] + 1, newArea[1][1] + 1])
         }
     

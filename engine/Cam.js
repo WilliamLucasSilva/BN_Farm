@@ -1,4 +1,12 @@
+/**
+ * @typedef {[number, number]} Vec2
+ * @typedef {[number, number]} Size2D
+ */
+
 export class Cam{
+
+
+
     /**
      * create a cam
      * @param {[x:number, y:number]} coords - initial coords
@@ -7,8 +15,7 @@ export class Cam{
      */
     constructor(coords, size, wSize){
 
-        /** @typedef {[number, number]} Vec2 */
-        /** @typedef {[number, number]} Size2D */
+
 
         /** @type {Vec2} */
         this.coord = [...coords]
@@ -72,5 +79,14 @@ export class Cam{
         /** @type {[x:number, y:number]} */
         let bounds = [this.coord[0] + this.size[0], this.coord[1] + this.size[1]]
         return bounds
+    }
+
+    /**
+     * 
+     * @param {Vec2} coords 
+     * @returns {Vec2}
+     */
+    toR2Coords(coords){
+        return [coords[0] + this.coord[0], coords[1] + this.coord[1]]
     }
 }

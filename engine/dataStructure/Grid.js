@@ -1,3 +1,4 @@
+import { ObjectList } from "./ObjectList.js";
 
 /**
  * grid data structure
@@ -71,11 +72,11 @@ export class Grid{
     /**
      * 
      * @param {[x:number, y:number]} coords 
-     * @param {number} gap 
+     * @param {[width:number, height:number]} gap 
      */
     toGridCoord(coords, gap){
-        let gx = Math.floor(coords[0] / gap);
-        let gy = Math.floor(coords[1] / gap);
+        let gx = Math.floor(coords[0] / gap[0]);
+        let gy = Math.floor(coords[1] / gap[1]);
 
         // Garante que o índice esteja dentro do array nodes (0 até size-1)
         gx = Math.max(0, Math.min(gx, this.size[0] - 1));
@@ -98,15 +99,7 @@ export class Node{
      */
     constructor(id){
         this.id = id
-    }
-
-    /**
-     * reference a object
-     * 
-     * @param {*} obj - The reference from node to object 
-     */
-    setObject(obj){
-        this.object = obj
+        this.object = new ObjectList()
     }
 
     /**
